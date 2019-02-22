@@ -9,7 +9,7 @@ const goalSchema = mongoose.Schema({
     target: {type: Number, min: 1},
     reward: String,
     complete: {type: Boolean, default: false},
-    timestamps: true
+    timestamps: Date
 })
 
 goalSchema.methods.serialize = function() {
