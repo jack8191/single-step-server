@@ -1,15 +1,41 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const bcrypt = require('bcryptjs')
+const {Schema, model} = require('mongoose') 
 
-const goalSchema = mongoose.Schema({
+const userSchema = Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
+
+userSchema.methods.serialize = function() {
+    return {
+        username: this.username,
+        userId: this._id
+    }
+}
+
+userSchema.methods.validatePassword = function(password) {
+    return bcrypt.compare(password, this.password)
+}
+
+userSchema.statics.hashPassword = function(password) {
+    return bcrypt.hash(password, 10)
+}
+
+const goalSchema = Schema({
     title: String,
     description: String,
     targetDate: Date,
     progress: {type: Number, default: 0},
     target: {type: Number, min: 1},
-    reward: String,
-    complete: {type: Boolean, default: false},
-    timestamps: Date
+    reward: String, 
+    timestamps: Date 
 })
 
 goalSchema.methods.serialize = function() {
@@ -21,12 +47,12 @@ goalSchema.methods.serialize = function() {
         progress: this.progress,
         target: this.target,
         reward: this.reward,
-        complete: this.complete,
         createdAt: this.createdAt
     }
 }
 
-const Goal = mongoose.model('Goal', goalSchema)
+const Goal = model('Goal', goalSchema)
+const User = model('User', userSchema)
 
-module.exports = {Goal}
+module.exports = {Goal, User}
 

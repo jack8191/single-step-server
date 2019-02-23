@@ -1,10 +1,10 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 
 const {Goal} = require('../models')
 const router = express.Router()
 
-const jsonParser = bodyParser.json()
+//const jsonParser = bodyParser.json()
 
 router.get('/', (req, res) => {
     Goal.find()

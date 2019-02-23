@@ -1,27 +1,34 @@
+require('dotenv').config();
+
 const express = require('express')
-const router = express.Router()
-const bodyParser = require('body-parser')
-const app = express()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cors = require('cors')
-
-require('dotenv').config();
-
 const { router: goalsRouter } = require('./goals/goals-router')
+const { router: authRouter } = require('./auth/setup')
+const { router: usersRouter } = require('./users/setup')
+const { localStrategy, jwtStrategy } = require('./auth/setup')
 const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require('./config');
 
-app.use(morgan('common'))
-const jsonParser = bodyParser.json()
-app.use(express.json())
-app.use('/goals', goalsRouter)
 
+const app = express()
+
+app.use(morgan('common'))
 app.use(
   cors({
     origin: CLIENT_ORIGIN
   })
 )
 
+passport.use(localStrategy)
+passport.use(jwtStrategy)
+
+app.use(express.json())
+
+  
+  app.use('/goals', goalsRouter)
+  app.use('/users', usersRouter)
+  app.use('/auth', authRouter)
 // this function closes the server, and returns a promise. we'll
 // use it in our integration tests later.
 let server;
