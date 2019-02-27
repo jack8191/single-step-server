@@ -3,6 +3,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 const config = require('../config')
+const {localStrategy, jwtStrategy} = require('./strategies')
 const router = express.Router()
 
 const createAuthToken = function(user) {
@@ -19,3 +20,13 @@ router.post('/login', localAuth, (req, res) => {
     const authToken = createAuthToken(req.user.serialize())
     res.json({authToken})
 })
+
+const jwtAuth = passport.authenticate('jwt', {session: false});
+
+
+router.post('/refresh', jwtAuth, (req, res) => {
+  const authToken = createAuthToken(req.user);
+  res.json({authToken});
+});
+
+module.exports={router}

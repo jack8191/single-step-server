@@ -4,9 +4,10 @@ const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const passport = require('passport')
 const { router: goalsRouter } = require('./goals/goals-router')
 const { router: authRouter } = require('./auth/setup')
-const { router: usersRouter } = require('./users/setup')
+const { router: usersRouter } = require('./users/users-router')
 const { localStrategy, jwtStrategy } = require('./auth/setup')
 const { DATABASE_URL, PORT, CLIENT_ORIGIN } = require('./config');
 
@@ -26,9 +27,9 @@ passport.use(jwtStrategy)
 app.use(express.json())
 
   
-  app.use('/goals', goalsRouter)
-  app.use('/users', usersRouter)
-  app.use('/auth', authRouter)
+app.use('/goals', goalsRouter)
+app.use('/users', usersRouter)
+app.use('/auth', authRouter)
 // this function closes the server, and returns a promise. we'll
 // use it in our integration tests later.
 let server;

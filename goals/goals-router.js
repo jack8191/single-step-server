@@ -6,8 +6,8 @@ const router = express.Router()
 
 //const jsonParser = bodyParser.json()
 
-router.get('/', (req, res) => {
-    Goal.find()
+router.get('/:currentUser', (req, res) => {
+    Goal.find({ownedBy: req.params.currentUser})
         .then(goal => {
             res.json(goal.map(goal => goal.serialize()))
         })

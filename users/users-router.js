@@ -1,10 +1,10 @@
 const express = require('express')
 
 const {User} = require('../models')
-const router = express.router()
+const router = express.Router()
 
 // Post to register a new user
-router.post('/', jsonParser, (req, res) => {
+router.post('/', (req, res) => {
     const requiredFields = ['username', 'password']
     const missingField = requiredFields.find(field => !(field in req.body))
   
@@ -96,9 +96,7 @@ router.post('/', jsonParser, (req, res) => {
       .then(hash => {
         return User.create({
           username,
-          password: hash,
-          firstName,
-          lastName
+          password: hash
         })
       })
       .then(user => {
@@ -113,4 +111,6 @@ router.post('/', jsonParser, (req, res) => {
         res.status(500).json({code: 500, message: 'Internal server error'})
       })
 })
+
+module.exports = {router}
   
