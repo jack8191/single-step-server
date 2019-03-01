@@ -16,4 +16,14 @@ router.get('/:currentUser', (req, res) => {
         })
 })
 
+router.delete('/:goalId', (req, res) => {
+    Goal.findByIdAndDelete(req.params.goalId)
+        .then(() => {
+            res.status(204).json({ message: 'goal deleted' })
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'internal server error'})
+        })
+})
+
 module.exports = {router}
