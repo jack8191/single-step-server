@@ -35,7 +35,7 @@ const goalSchema = Schema({
     progress: {type: Number, default: 0},
     target: {type: Number, min: 1},
     reward: String, 
-    timestamps: Date,
+    startDate: {type: Date, default: Date.now()},
     ownedBy: String 
 })
 
@@ -48,7 +48,7 @@ goalSchema.methods.serialize = function() {
         progress: this.progress,
         target: this.target,
         reward: this.reward,
-        createdAt: this.createdAt,
+        startDate: this.startDate,
         ownedBy: this.ownedBy
     }
 }

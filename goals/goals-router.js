@@ -49,6 +49,22 @@ router.post('/', (req,res) => {
         })
 })
 
+router.patch('/:goalId', jwtAuth, (req, res) => {
+    const updated = {}
+    const updatableFields = ['title', 'description', 'targetDate', 'progress',
+    'target', 'reward'
+    ]
+    updatableFields.forEach(field => {
+        if (field in req.body) {
+            updated[field] = req.body[field]
+        }
+    })
+    Goal
+        .findByIdAndUpdate(req.params.goalId, { $set: updated }, { new: true })
+            .then(goal => res.json(goal.serialize()))
+        .catch(err => res.status(500).json({ message: 'internal server error'}))
+})
+
 router.delete('/:goalId', jwtAuth, (req, res) => {
     Goal.findByIdAndDelete(req.params.goalId)
         .then(() => {
