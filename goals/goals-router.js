@@ -23,7 +23,7 @@ router.get('/:currentUser', jwtAuth, (req, res) => {
         })
 })
 
-router.post('/', (req,res) => {
+router.post('/', jwtAuth, (req,res) => {
     const requiredFields = ['title', 'description', 'targetDate', 'target', 'reward', 'ownedBy']
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];

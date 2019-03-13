@@ -58,3 +58,4 @@ const User = model('User', userSchema)
 
 module.exports = {Goal, User}
 
+
