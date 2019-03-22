@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: G3iNIxQsA2jHxcrUmAxnPyw4AB1i9NZJN/0asOvIZW9rxAA1i4dOQ+JAprV8mJqAdnA+nBYRNvPREMY93EBRNOwpkQpzQp82BlBKlDJ1xiM/grfM5resMFNMY30U4jji3ITeMFo4Lko9ZXIXXOfjYjjSRhe3twnknSmhcRQ5OdKRASUBQ6YFxxlSA+VqfdpXZwqZ/FSKidAwer6ciIZNmUZHR6QM8jIUjRwrAGbNWz8V6jyxGpZddB3hbDL7r+z57H6dAemUV32FYKiKVXtcvn1emCug55PeQdCBItYQEab6wu4chXnnrrQkdwIDBRYHyk5vqZ6gho5ZOQR7zGHzfnvCM4e0tj4xrs7XdEqRoiGeLoUVZAAVpfoMRQP2fvUREKk+A73esMlt2bZBZt85qK4iJDJ+rUv/DF2BB3CzGZYNjzZMmmVHOdCZFQ2VEYU7kk3WtES0Dba8b+3FUHNlflUGUgkNsPSgMXWr5xqAkcJDqzlFhY9Xla9iKTFBV/oI8D1VRZJue41QYjFgJ/VslVmxh7r44ocA7pSEU9NgraKpf4EGEPjuRT/Wjl+ESz75kc3RUH54KB+FFKrXgojv09qIhzkeIWlx0wQBpmuFRG5/ruS2tcgsH0bohthPCOh+W4WFZoy7T5sdfWg8vBFYUNgSSNcu1kF/wMFigUOyhUk=
+  app: pacific-headland-83797
+  on:
+    repo: jack8191/single-step-server
